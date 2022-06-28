@@ -47,6 +47,15 @@ h1, h6 {
     
 }
 
+/* Project ADD */
+form ul li.category{
+    display: inline;
+    background-color: white;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+
 /* Project Detail Expenses */
 .section-expenses button{
     padding: 0px 40px;
