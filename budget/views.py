@@ -13,7 +13,10 @@ from .models import Category, Expense, Project
 
 # Create your views here.
 def project_list(request):
-    return render(request, 'budget/project-list.html')
+    project_list = Project.objects.all()
+
+    return render(request, 'budget/project-list.html',
+                  {'project_list': project_list})
 
 
 @csrf_exempt
