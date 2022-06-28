@@ -49,7 +49,7 @@
                             <span class="title bold">{{expense.category.name}}</span>
                         </div>
 
-                        <a href="">
+                        <a onclick="deleteExpense('{{ expense.id }}')">
                             <i class="material-icons red-text right">close</i>
                         </a>
 
@@ -93,6 +93,20 @@
 
     var elem = document.querySelector('select')
     var instance = M.FormSelec.init(elem)
+
+    function deleteExpense(id) {
+        fetch('', {
+            method: 'DELETE',
+            headers: {
+                'X-CRSFToken': '{{ csrf_token }}',
+                'CsrfViewMiddleware': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'id': id
+            }),
+            credentials: 'same-origin',
+        })
+    }
 </script>
 
 {% endblock %}

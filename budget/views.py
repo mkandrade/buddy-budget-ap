@@ -1,6 +1,9 @@
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
 
 from budget.forms import ExpensesForm
@@ -13,6 +16,7 @@ def project_list(request):
     return render(request, 'budget/project-list.html')
 
 
+@csrf_exempt
 def project_detail(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)
 
@@ -41,7 +45,13 @@ def project_detail(request, project_slug):
                 amount=amount,
                 category=category,
             ).save()
-        pass
+
+    elif request.method == 'DELETE':
+        id = json.loads(request.body)['id']
+        expense = get_object_or_404(Expense, id=id)
+        expense.delete()
+
+        return HttpResponse('')
 
     return HttpResponseRedirect(project_slug)
 
